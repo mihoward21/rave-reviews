@@ -1,4 +1,5 @@
 import { BaseModel } from './base.js';
+import { Review } from './review.js';
 
 export class Product extends BaseModel {
     productId;

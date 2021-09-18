@@ -2,8 +2,33 @@
     "product.43a2b7f1-321c-4dee-a06c-87a588885e41": {
         "productId": "product.43a2b7f1-321c-4dee-a06c-87a588885e41",
         "name": "Mikes Miracle Marmalade",
-        "reviewIds": [],
+        "reviewIds": [
+            "review.f96e4d42-57e2-4346-83fe-b394d1b859f3",
+            "review.e11e4d87-28a0-48d8-a438-f0aee7327df3",
+            "review.a6bbf0c1-3c19-4ec8-9a80-1d9cb53ef7ed"
+        ],
         "createdDate": 1631997336,
         "lastUpdatedDate": 1631997336
+    },
+    "review.f96e4d42-57e2-4346-83fe-b394d1b859f3": {
+        "reviewId": "review.f96e4d42-57e2-4346-83fe-b394d1b859f3",
+        "rating": 1.0,
+        "text": "Love this marmalade! It's the best I've ever tasted",
+        "createdDate": 1631999344,
+        "lastUpdatedDate": 1631999344
+    },
+    "review.e11e4d87-28a0-48d8-a438-f0aee7327df3": {
+        "reviewId": "review.e11e4d87-28a0-48d8-a438-f0aee7327df3",
+        "rating": 0.2,
+        "text": "This may be the single worst food I've ever tried in my entire life.",
+        "createdDate": 1631999736,
+        "lastUpdatedDate": 1631999736
+    },
+    "review.a6bbf0c1-3c19-4ec8-9a80-1d9cb53ef7ed": {
+        "reviewId": "review.a6bbf0c1-3c19-4ec8-9a80-1d9cb53ef7ed",
+        "rating": 0.6,
+        "text": "",
+        "createdDate": 1632001321,
+        "lastUpdatedDate": 1632001321
     }
 }

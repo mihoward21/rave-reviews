@@ -2,10 +2,7 @@ import { Product } from '../models/product.js';
 
 export const getProduct = async (req, res) => {
     const productId = req.query.productId;
-    let shouldLoadReviews = req.query.shouldLoadReviews; // Defaults to true
-    if (shouldLoadReviews === undefined) {
-        shouldLoadReviews = true;
-    }
+    const shouldLoadReviews = req.query.shouldLoadReviews === "true" ? true : false; // Defaults to false if undefined
 
     const product = await Product.load(productId);
     if (!product) {

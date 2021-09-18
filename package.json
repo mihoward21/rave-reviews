@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/mihoward21/rave-reviews#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

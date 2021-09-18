@@ -6,12 +6,14 @@ export class Product extends BaseModel {
     name;
     reviewIds;
     loadedReviews;
+    totalRating; // This is the sum of the rating for all reviews of this product
     constructor(props) {
         super(props);
         this.productId = props?.productId;
         this.name = props?.name;
         this.reviewIds = props?.reviewIds || [];
         this.loadedReviews = [];
+        this.totalRating = props.totalRating || 0;
     }
 
     getPrimaryKeyValue() {
@@ -31,6 +33,7 @@ export class Product extends BaseModel {
             'productId': this.productId,
             'name': this.name,
             'reviewIds': this.reviewIds,
+            'overallRating': this.getOverallRating()
         };
 
         if (this.loadedReviews.length > 0) {
@@ -42,12 +45,22 @@ export class Product extends BaseModel {
         return jsonData;
     }
 
+    getOverallRating() {
+        if (this.reviewIds.length === 0) {
+            return null;
+        }
+
+        // Return the rating to two decimal places
+        return Math.round((this.totalRating / this.reviewIds.length) * 100) / 100;
+    }
+
     toDbJson() {
         const dbObj = super.toDbJson();
         Object.assign(dbObj, {
             'productId': this.productId,
             'name': this.name,
             'reviewIds': this.reviewIds,
+            'totalRating': this.totalRating,
         });
         return dbObj;
     }
@@ -62,7 +75,8 @@ export class Product extends BaseModel {
         }
     }
 
-    addReview(reviewId) {
-        this.reviewIds.push(reviewId);
+    addReview(review) {
+        this.reviewIds.push(review.reviewId);
+        this.totalRating += review.rating;
     }
 }

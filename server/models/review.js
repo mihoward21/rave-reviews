@@ -1,7 +1,7 @@
 import { BaseModel } from './base.js';
 
-const MIN_RATING = 1;
-const MAX_RATING = 5;
+const MIN_STARS = 1;
+const MAX_STARS = 5;
 
 // This character limit was just arbitrarily chosen. Still, it would be something I believe
 // we'd want to have. Both from a database perspective, and potentially from a UX 
@@ -35,7 +35,7 @@ export class Review extends BaseModel {
         return {
             'reviewId': this.reviewId,
             'numStars': this.getStarNumber(),
-            'maxAllowedStars': MAX_RATING,
+            'maxAllowedStars': MAX_STARS,
             'text': this.text,
         };
     }
@@ -45,7 +45,7 @@ export class Review extends BaseModel {
         // So if someone originally gave 4 out of 5 stars, and in the future
         // we changed it to a 10 star scale, it would come out as 8 out of 10
         // stars then.
-        return this.rating * MAX_RATING;
+        return this.rating * MAX_STARS;
     }
 
     toDbJson() {
@@ -58,12 +58,16 @@ export class Review extends BaseModel {
         return dbObj;
     }
 
-    setRating(numStars, numStarsDisplayed) {
-        if (numStars < MIN_RATING || numStars > numStarsDisplayed) {
-            throw new Error(`The number of selected stars must be between ${MIN_RATING} and ${numStarsDisplayed}`);
+    setRating(numStars, maxAllowedStars) {
+        // Check against the max allowed stars passed in from the client rather than the one on the backend.
+        // It's possible a user could have an older client that has a different max number of stars set. If they
+        // are trying to give a rating of 4 out of 5 stars, we don't want to accidentally save that as 4 out of
+        // 10 stars.
+        if (numStars < MIN_STARS || numStars > maxAllowedStars) {
+            throw new Error(`The number of selected stars must be between ${MIN_STARS} and ${maxAllowedStars}`);
         }
 
-        this.rating = numStars / MAX_RATING;
+        this.rating = numStars / maxAllowedStars;
     }
 
     validateData() {

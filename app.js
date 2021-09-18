@@ -18,3 +18,5 @@ app.get('/api/product', asyncHandler(productHandler.getProduct));
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
+
+export default app;

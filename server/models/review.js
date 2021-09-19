@@ -34,6 +34,7 @@ export class Review extends BaseModel {
     toPublicJson() {
         return {
             'reviewId': this.reviewId,
+            'rating': this.rating,
             'numStars': this.getStarNumber(),
             'maxAllowedStars': MAX_STARS,
             'text': this.text,

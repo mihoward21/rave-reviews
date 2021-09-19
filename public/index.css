@@ -3,6 +3,10 @@ body {
     margin: auto;
 }
 
+li {
+    list-style: none;
+}
+
 .app-header {
     text-align: center;
 }
@@ -29,6 +33,7 @@ body {
     border-color: #cccbcb;
     color: #6d6d6d;
     font-size: medium;
+    cursor: pointer;
 }
 
 .fa-star {
@@ -38,4 +43,20 @@ body {
 
 .filled-in-star {
     color: #dede25;
+}
+
+.review-list-item {
+    display: flex;
+    align-items: center;
+}
+
+.review-rating {
+    margin-left: 25px;
+}
+
+.review-text {
+    margin-left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

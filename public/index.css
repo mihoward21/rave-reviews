@@ -1,3 +1,41 @@
+body {
+    width: 60%;
+    margin: auto;
+}
+
 .app-header {
     text-align: center;
+}
+
+.product-rating-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-overall-rating{
+    display: inline-block;
+}
+
+.product-overall-stars {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.add-review-btn {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    border-color: #cccbcb;
+    color: #6d6d6d;
+    font-size: medium;
+}
+
+.fa-star {
+    color: #b5b5b5;
+    font-size: 30px;
+}
+
+.filled-in-star {
+    color: #dede25;
 }

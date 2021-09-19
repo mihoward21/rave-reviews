@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="index.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="index.js"></script>
+        <title>Rave Reviews</title>
     </head>
     <body>
-        <h1 class="app-header">Rave Reviews</h1>
-        <p>Hello World!</p>
+        <div id="loading-screen">
+            <h1 class="app-header">...Loading</h1>
+        </div>
+        <div id="product-screen" style="display: none;">
+            <h1 class="app-header" id="product-name"></h1>
+            <div class="product-rating-area">
+                <div>
+                    <h2 id="product-overall-rating" class="product-overall-rating"></h2>
+                    <div class="product-overall-stars">
+                        <span id="overall-rating-star-1" class="fa fa-star"></span>
+                        <span id="overall-rating-star-2" class="fa fa-star"></span>
+                        <span id="overall-rating-star-3" class="fa fa-star"></span>
+                        <span id="overall-rating-star-4" class="fa fa-star"></span>
+                        <span id="overall-rating-star-5" class="fa fa-star"></span>
+                    </div>
+                </div>
+                <button id="add-review" class="add-review-btn">Add review</button>
+            </div>
+            <hr>
+            <div>
+                <h3>Reviews</h3>
+                <ul id="product-reviews-list"></ul>
+            </div>
+        </div>
     </body>
 </html>

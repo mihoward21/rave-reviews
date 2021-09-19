@@ -19,7 +19,7 @@
                     <div id="product-overall-stars" class="product-overall-stars">
                     </div>
                 </div>
-                <button id="add-review" class="add-review-btn">Add review</button>
+                <button onclick="goToReviewPage()">Add review</button>
             </div>
             <hr>
             <div>
@@ -27,6 +27,20 @@
                 <p id="no-reviews-message" style="display: none;">No reviews yet!</p>
                 <ul id="product-reviews-list"></ul>
             </div>
+        </div>
+        <div id="add-review-screen" style="display: none;">
+            <h1>What's your rating?</h1>
+            <h4>Rating</h4>
+            <div id='add-review-stars'>
+                <span id='add-review-stars-star-1' class='fa fa-star' onclick='setRating(1)'></span>
+                <span id='add-review-stars-star-2' class='fa fa-star' onclick='setRating(2)'></span>
+                <span id='add-review-stars-star-3' class='fa fa-star' onclick='setRating(3)'></span>
+                <span id='add-review-stars-star-4' class='fa fa-star' onclick='setRating(4)'></span>
+                <span id='add-review-stars-star-5' class='fa fa-star' onclick='setRating(5)'></span>
+            </div>
+            <h4>Review</h4>
+            <textarea id='add-review-text' class='add-review-textarea' rows=4 placeholder='Start typing...'></textarea>
+            <button onclick='submitReview()'>Submit review</button>
         </div>
     </body>
 </html>

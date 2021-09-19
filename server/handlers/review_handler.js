@@ -11,6 +11,7 @@ export const addReview = async (req, res) => {
     const numStars = req.body.numStars;
     const maxAllowedStars = req.body.maxAllowedStars;
     const text = req.body.text;
+    const shouldLoadReviews = req.body.shouldLoadReviews === "true" ? true : false; // Defaults to false if undefined
 
     const review = new Review();
     review.setRating(numStars, maxAllowedStars);
@@ -19,6 +20,10 @@ export const addReview = async (req, res) => {
     await review.save();
     product.addReview(review);
     await product.save();
+    
+    if (shouldLoadReviews) {
+        await product.loadReviews();
+    }
 
     res.send({
         'product': product.toPublicJson()

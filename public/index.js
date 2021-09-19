@@ -1,21 +1,32 @@
+// Hardcoding this product id for now
+const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
+
+let reviewRating = 0;
+const MAX_STARS = 5;
+
 const fetchProduct = async () => {
-    const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
     const response = await $.get('/api/product', {
         'productId': productId,
         'shouldLoadReviews': true,
     });
 
-    // Round the overall rating to one decimal place
-    const overallRating = Math.round(response.product.overallRating * response.product.maxAllowedStars * 10) / 10;
-
-    $('#product-name').html(response.product.name);
-    $('#product-overall-rating').html(overallRating);
-    fillInStars('overall-rating-star', response.product.numStars, response.product.maxAllowedStars);
-
-    setProductReviews(response.product.loadedReviews);
+    setProductData(response.product);
 
     $('#product-screen').show();
     $('#loading-screen').hide();
+};
+
+const setProductData = (product) => {
+    // Round the overall rating to one decimal place
+    const overallRating = Math.round(product.overallRating * product.maxAllowedStars * 10) / 10;
+
+    $('#product-name').html(product.name);
+    $('#product-overall-rating').html(overallRating);
+
+    $('#product-overall-stars').empty();
+    fillInStars('product-overall-stars', product.numStars, product.maxAllowedStars);
+
+    setProductReviews(product.loadedReviews);
 };
 
 const setProductReviews = (reviewsList) => {
@@ -24,6 +35,7 @@ const setProductReviews = (reviewsList) => {
         return;
     }
 
+    $('#product-reviews-list').empty();
     for (const [index, review] of reviewsList.entries()) {
         const reviewListItemId = `review-${index}`;
         const reviewStarsId = `review-stars-list-${index}`;
@@ -39,16 +51,67 @@ const setProductReviews = (reviewsList) => {
     }
 };
 
-const fillInStars = (listId, numVisibleStars, numTotalStars) => {
+const fillInStars = (listId, numVisibleStars, numTotalStars, starSpansAlreadyExist) => {
     let starCounter = 1;
     while (starCounter <= numTotalStars) {
         const spanId = `${listId}-star-${starCounter}`;
-        $(`#${listId}`).append(`<span id='${spanId}' class='fa fa-star'></span>`);
+        if (!starSpansAlreadyExist) {
+            $(`#${listId}`).append(`<span id='${spanId}' class='fa fa-star'></span>`);
+        }
         if (starCounter <= numVisibleStars) {
             $(`#${spanId}`).addClass('filled-in-star');
+        } else {
+            $(`#${spanId}`).removeClass('filled-in-star');
         }
         starCounter += 1;
     }
 };
+
+const goToReviewPage = () => {
+    clearReviewData();
+    $('#product-screen').hide();
+    $('#add-review-screen').show();
+};
+
+const clearReviewData = () => {
+    reviewRating = 0;
+    reviewText = '';
+
+    const starSpansAlreadyExist = true;
+    fillInStars('add-review-stars', 0, MAX_STARS, starSpansAlreadyExist)
+    $('#add-review-text').val('');
+};
+
+const setRating = (rating) => {
+    reviewRating = rating;
+    const starSpansAlreadyExist = true;
+    fillInStars('add-review-stars', rating, MAX_STARS, starSpansAlreadyExist);
+};
+
+const submitReview = async () => {
+    if (reviewRating === 0) {
+        window.alert('You must select a star rating to leave a review');
+        return;
+    }
+
+    const reviewData = {
+        'productId': productId,
+        'numStars': reviewRating,
+        'maxAllowedStars': MAX_STARS,
+        'shouldLoadReviews': true,
+    };
+
+    const reviewText = $('#add-review-text').val();
+    if (reviewText && reviewText.trim()) {
+        reviewData['text'] = reviewText.trim();
+    }
+
+    const response = await $.post('/api/review', reviewData);
+    
+    setProductData(response.product);
+
+    $('#add-review-screen').hide();
+    $('#product-screen').show();
+}
 
 fetchProduct();

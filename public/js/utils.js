@@ -1,22 +1,11 @@
 // Hardcoding this product id for now
-const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
-
-let reviewRating = 0;
-const MAX_STARS = 5;
-
-const fetchProduct = async () => {
-    const response = await $.get('/api/product', {
-        'productId': productId,
-        'shouldLoadReviews': true,
-    });
-
-    setProductData(response.product);
-
-    $('#product-screen').show();
-    $('#loading-screen').hide();
+export const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
+export const reviewData = {
+    'rating': 0,
+    'text': ''
 };
 
-const setProductData = (product) => {
+export const setProductData = (product) => {
     // Round the overall rating to one decimal place
     const overallRating = Math.round(product.overallRating * product.maxAllowedStars * 10) / 10;
 
@@ -29,7 +18,7 @@ const setProductData = (product) => {
     setProductReviews(product.loadedReviews);
 };
 
-const setProductReviews = (reviewsList) => {
+export const setProductReviews = (reviewsList) => {
     if (!reviewsList || reviewsList.length === 0) {
         $('#no-reviews-message').show();
         return;
@@ -51,7 +40,7 @@ const setProductReviews = (reviewsList) => {
     }
 };
 
-const fillInStars = (listId, numVisibleStars, numTotalStars, starSpansAlreadyExist) => {
+export const fillInStars = (listId, numVisibleStars, numTotalStars, starSpansAlreadyExist) => {
     let starCounter = 1;
     while (starCounter <= numTotalStars) {
         const spanId = `${listId}-star-${starCounter}`;
@@ -66,52 +55,3 @@ const fillInStars = (listId, numVisibleStars, numTotalStars, starSpansAlreadyExi
         starCounter += 1;
     }
 };
-
-const goToReviewPage = () => {
-    clearReviewData();
-    $('#product-screen').hide();
-    $('#add-review-screen').show();
-};
-
-const clearReviewData = () => {
-    reviewRating = 0;
-    reviewText = '';
-
-    const starSpansAlreadyExist = true;
-    fillInStars('add-review-stars', 0, MAX_STARS, starSpansAlreadyExist)
-    $('#add-review-text').val('');
-};
-
-const setRating = (rating) => {
-    reviewRating = rating;
-    const starSpansAlreadyExist = true;
-    fillInStars('add-review-stars', rating, MAX_STARS, starSpansAlreadyExist);
-};
-
-const submitReview = async () => {
-    if (reviewRating === 0) {
-        window.alert('You must select a star rating to leave a review');
-        return;
-    }
-
-    const reviewData = {
-        'productId': productId,
-        'numStars': reviewRating,
-        'maxAllowedStars': MAX_STARS,
-        'shouldLoadReviews': true,
-    };
-
-    const reviewText = $('#add-review-text').val();
-    if (reviewText && reviewText.trim()) {
-        reviewData['text'] = reviewText.trim();
-    }
-
-    const response = await $.post('/api/review', reviewData);
-    
-    setProductData(response.product);
-
-    $('#add-review-screen').hide();
-    $('#product-screen').show();
-}
-
-fetchProduct();

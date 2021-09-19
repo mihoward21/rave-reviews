@@ -1,7 +1,7 @@
 import { BaseModel } from './base.js';
 
 const MIN_STARS = 1;
-const MAX_STARS = 5;
+export const MAX_STARS = 5;
 
 // This character limit was just arbitrarily chosen. Still, it would be something I believe
 // we'd want to have. Both from a database perspective, and potentially from a UX 
@@ -45,7 +45,7 @@ export class Review extends BaseModel {
         // So if someone originally gave 4 out of 5 stars, and in the future
         // we changed it to a 10 star scale, it would come out as 8 out of 10
         // stars then.
-        return this.rating * MAX_STARS;
+        return Math.round(this.rating * MAX_STARS);
     }
 
     toDbJson() {

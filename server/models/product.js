@@ -1,5 +1,5 @@
 import { BaseModel } from './base.js';
-import { Review } from './review.js';
+import { Review, MAX_STARS } from './review.js';
 
 export class Product extends BaseModel {
     productId;
@@ -29,11 +29,14 @@ export class Product extends BaseModel {
     }
 
     toPublicJson() {
+        const overallRating = this.getOverallRating();
         const jsonData = {
             'productId': this.productId,
             'name': this.name,
             'reviewIds': this.reviewIds,
-            'overallRating': this.getOverallRating()
+            'overallRating': overallRating,
+            'numStars': this.getStarNumber(overallRating),
+            'maxAllowedStars': MAX_STARS
         };
 
         if (this.loadedReviews.length > 0) {
@@ -52,6 +55,14 @@ export class Product extends BaseModel {
 
         // Return the rating to two decimal places
         return Math.round((this.totalRating / this.reviewIds.length) * 100) / 100;
+    }
+
+    getStarNumber(overallRating) {
+        if (!overallRating) {
+            return 0;
+        }
+
+        return Math.round(overallRating * MAX_STARS);
     }
 
     toDbJson() {

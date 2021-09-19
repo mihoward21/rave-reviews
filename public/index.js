@@ -1,5 +1,3 @@
-const MAX_STARS = 5;
-
 const fetchProduct = async () => {
     const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
     const response = await $.get('/api/product', {
@@ -8,11 +6,11 @@ const fetchProduct = async () => {
     });
 
     // Round the overall rating to one decimal place
-    const overallRating = Math.round(response.product.overallRating * MAX_STARS * 10) / 10;
+    const overallRating = Math.round(response.product.overallRating * response.product.maxAllowedStars * 10) / 10;
 
     $('#product-name').html(response.product.name);
     $('#product-overall-rating').html(overallRating);
-    fillInStars('overall-rating-star', overallRating);
+    fillInStars('overall-rating-star', response.product.numStars, response.product.maxAllowedStars);
 
     $('#product-screen').show();
     $('#loading-screen').hide();
@@ -27,13 +25,14 @@ const setProductReviews = (reviewsList) => {
 
 };
 
-const fillInStars = (idPrefix, rating) => {
-    // Round the rating to a whole number for the star display
-    const visibleStars = Math.round(rating);
+const fillInStars = (idPrefix, numVisibleStars, numTotalStars) => {
     let starCounter = 1;
-    while (starCounter <= visibleStars) {
+    while (starCounter <= numTotalStars) {
         const spanId = `${idPrefix}-${starCounter}`;
-        $(`#${spanId}`).addClass('filled-in-star');
+        $('#product-overall-stars').append(`<span id='${spanId}' class='fa fa-star'></span>`);
+        if (starCounter <= numVisibleStars) {
+            $(`#${spanId}`).addClass('filled-in-star');
+        }
         starCounter += 1;
     }
 };

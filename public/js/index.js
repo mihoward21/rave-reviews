@@ -3,23 +3,34 @@ const productId = 'product.43a2b7f1-321c-4dee-a06c-87a588885e41';
 const App = () => {
     const [product, setProduct] = React.useState(null);
     const [isShowingReviewPage, setIsShowingReviewPage] = React.useState(false);
-    const [reviewData, setReviewData] = React.useState({
-        'rating': 0,
-        'text': ''
-    });
+    const [fetchDataTimer, setFetchDataTimer] = React.useState(null);
+
+    const fetchData = async () => {
+        const response = await $.get('/api/product', {
+            'productId': productId,
+            'shouldLoadReviews': true,
+        });
+
+        setProduct(response.product);
+
+        const timer = setTimeout(() => {
+            fetchData();
+        }, 10000);
+        setFetchDataTimer(timer);
+    };
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            const response = await $.get('/api/product', {
-                'productId': productId,
-                'shouldLoadReviews': true,
-            });
-    
-            setProduct(response.product);
-            // renderOverallRating(response.product, reviewData)
-        };
-        fetchData();
-    }, [setProduct]);
+        if (isShowingReviewPage) {
+            if (fetchDataTimer) {
+                clearTimeout(fetchDataTimer);
+                setFetchDataTimer(null);
+            }
+        } else {
+            if (!fetchDataTimer) {
+                fetchData();
+            }
+        }
+    }, [isShowingReviewPage, fetchDataTimer]);
 
     if (!product) {
         return <h1 className="app-header">...Loading</h1>

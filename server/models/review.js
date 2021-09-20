@@ -1,6 +1,6 @@
 import { BaseModel } from './base.js';
 
-const MIN_STARS = 1;
+const MIN_STARS = 0.5;
 export const MAX_STARS = 5;
 
 // This character limit was just arbitrarily chosen. Still, it would be something I believe

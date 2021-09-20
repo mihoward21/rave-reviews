@@ -8,10 +8,12 @@ const StarsDisplay = (props) => {
             newValues.push(val);
         }
         setStarValues(newValues);
-    }, [numTotalStars, setStarValues])
+    }, [numTotalStars, setStarValues]);
+
+    const displayDisabled = onChangeRating === undefined;
 
     return (
-        <fieldset className="rate" disabled={onChangeRating === undefined}>
+        <fieldset className="rate" disabled={displayDisabled}>
             {starValues.map((value, index) => {
                 const ratingId = `${listId}-rating-${index}`;
                 const isChecked = numVisibleStars === value;
@@ -19,8 +21,8 @@ const StarsDisplay = (props) => {
                 const type = onChangeRating ? 'radio' : 'checkbox';
                 return (
                     <>
-                        <input key={`${listId}-input-${ratingId}`} type={type} id={ratingId} name="rating" value={value} defaultChecked={isChecked} onChange={onChangeFunc} />
-                        <label key={`${listId}-label-${ratingId}`} htmlFor={ratingId} title={`${index} stars`} className={value % 1 !== 0 ? 'half' : undefined}></label>       
+                        <input key={`${listId}-input-${ratingId}`} type={type} id={ratingId} name="rating" value={value} checked={isChecked} readOnly={displayDisabled} onChange={onChangeFunc} />
+                        <label key={`${listId}-label-${ratingId}`} htmlFor={ratingId} className={value % 1 !== 0 ? 'half' : undefined}></label>       
                     </>
                 );
             })}

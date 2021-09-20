@@ -102,4 +102,6 @@ li {
     padding-right: 0;
 }
 
-input:checked ~ label { color: #dede25;  }
+input:checked ~ label { 
+    color: #dede25;  
+}

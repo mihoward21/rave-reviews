@@ -11,6 +11,39 @@
         "createdDate": 1631997336,
         "lastUpdatedDate": 1631997336
     },
+    "product.3749efb0-d1ad-4b8c-8dc4-93f32fa47512": {
+        "productId": "product.3749efb0-d1ad-4b8c-8dc4-93f32fa47512",
+        "name": "Test product",
+        "reviewIds": [
+            "review.ba7b9b25-e8fa-475f-b5d8-d1bb63ec1fa2",
+            "review.b9051baa-cb1f-4f1d-962d-0061ffa69761",
+            "review.60105758-43e3-433f-ad5e-5b36f4c5929e"
+        ],
+        "totalRating": 1.8,
+        "createdDate": 1631997421,
+        "lastUpdatedDate": 1631997421
+    },
+    "review.ba7b9b25-e8fa-475f-b5d8-d1bb63ec1fa2": {
+        "reviewId": "review.ba7b9b25-e8fa-475f-b5d8-d1bb63ec1fa2",
+        "rating": 0.6,
+        "text": "This product is pretty good",
+        "createdDate": 1631997778,
+        "lastUpdatedDate": 1631997778
+    },
+    "review.b9051baa-cb1f-4f1d-962d-0061ffa69761": {
+        "reviewId": "review.b9051baa-cb1f-4f1d-962d-0061ffa69761",
+        "rating": 1.0,
+        "text": "This product is amazing",
+        "createdDate": 1631997792,
+        "lastUpdatedDate": 1631997792
+    },
+    "review.60105758-43e3-433f-ad5e-5b36f4c5929e": {
+        "reviewId": "review.60105758-43e3-433f-ad5e-5b36f4c5929e",
+        "rating": 0.2,
+        "text": "This product is terrible",
+        "createdDate": 1631997798,
+        "lastUpdatedDate": 1631997798
+    },
     "review.f96e4d42-57e2-4346-83fe-b394d1b859f3": {
         "reviewId": "review.f96e4d42-57e2-4346-83fe-b394d1b859f3",
         "rating": 1.0,

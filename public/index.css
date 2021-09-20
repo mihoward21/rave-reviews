@@ -65,6 +65,14 @@ li {
     text-overflow: ellipsis;
 }
 
+.close-btn {
+    cursor: pointer;
+    font-size: 45px;
+    position: absolute;
+    left: 5%;
+    top: 15px;
+}
+
 .add-review-textarea {
     width: 100%;
     border: none;

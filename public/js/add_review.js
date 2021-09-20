@@ -33,8 +33,11 @@ const AddReviewPage = (props) => {
         setReviewText(event.target.value);
     }, [setReviewText]);
 
+    const closeButtonClasses = 'fa fa-times close-btn';
+
     return (
         <>
+            <i className={closeButtonClasses} onClick={goToProductScreenPage}></i>
             <h1>What's your rating?</h1>
             <h4>Rating</h4>
             <StarsDisplay listId='add-review' numVisibleStars={reviewRating} numTotalStars={MAX_STARS} onChangeRating={onChangeRating}/>

@@ -1,5 +1,5 @@
 const StarsDisplay = (props) => {
-    const { numVisibleStars, numTotalStars } = props;
+    const { numVisibleStars, numTotalStars, onChangeRating } = props;
     const [starValues, setStarValues] = React.useState([])
     
     React.useEffect(() => {
@@ -11,16 +11,14 @@ const StarsDisplay = (props) => {
     }, [numTotalStars, setStarValues])
 
     return (
-        <fieldset className="rate" disabled>
+        <fieldset className="rate" disabled={onChangeRating === undefined}>
             {starValues.map((value, index) => {
                 const ratingId = `rating-${index}`;
-                console.log(value);
-                console.log(numVisibleStars);
                 const isChecked = numVisibleStars === value;
-                console.log(isChecked);
+                const onChangeFunc = onChangeRating ? () => onChangeRating(value) : undefined;
                 return (
                     <>
-                        <input key={`input-${ratingId}`} type="radio" id={ratingId} name="rating" value={value} defaultChecked={isChecked} />
+                        <input key={`input-${ratingId}`} type="radio" id={ratingId} name="rating" value={value} defaultChecked={isChecked} onChange={onChangeFunc} />
                         <label key={`label-${ratingId}`} htmlFor={ratingId} title={`${index} stars`} className={value % 1 !== 0 ? 'half' : undefined}></label>       
                     </>
                 );

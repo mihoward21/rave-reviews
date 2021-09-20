@@ -62,7 +62,9 @@ export class Product extends BaseModel {
             return 0;
         }
 
-        return Math.round(overallRating * MAX_STARS);
+        // Multiply by 2 inside the round, then divide by 2 afterwards to support
+        // half stars
+        return Math.round(overallRating * MAX_STARS * 2) / 2;
     }
 
     toDbJson() {

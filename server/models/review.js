@@ -46,7 +46,10 @@ export class Review extends BaseModel {
         // So if someone originally gave 4 out of 5 stars, and in the future
         // we changed it to a 10 star scale, it would come out as 8 out of 10
         // stars then.
-        return Math.round(this.rating * MAX_STARS);
+
+        // Multiply by 2 inside the round, then divide by 2 afterwards to support
+        // half stars
+        return Math.round(this.rating * MAX_STARS * 2) / 2;
     }
 
     toDbJson() {
